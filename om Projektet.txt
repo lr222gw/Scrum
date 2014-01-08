@@ -1,0 +1,10 @@
+Medlemsregister!
+
+om:
+Ska bygga ett medlemsregister.
+
+sprint/arbetstid uppdelning:
+en dag = en sprint, en sprint = ~6h
+
+Språk:
+Javascript (vad som är planerat..)

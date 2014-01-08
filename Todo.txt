@@ -15,8 +15,15 @@ Allt som allt:
 // ? Detta i en mapp per sprint!  
 sprint review, sprint retrospective, sprint backlog = uppdateras för varje sprint.
 
-SPRINT BACKLOG = Dela upp varje user-story i arbetstid som krävs..
+SPRINT BACKLOG = Dela upp varje user-story i arbetstid som krävs..(i timmar)
+		^hur långt man tror att en uppgift tar, (hur långt den tog skrivs också, sen in i burndowncharten!)
 
 efter varje sprint så ska Applikationen vara klar och testad, mer funktioner läggs till vid nästa sprint..
 
 Burndown chart = WorkRemaning / Hastighet = Dagar tills sprint är klar
+
+Sprint Retrospective = Vad gick bra/dåligt, hur förbättra?
+
+
+Burndownchart = Sprint backlog fast med uppskattad och idealt tid... 
+		^Ta infon från sprintBacklog och kasta in dem i en graf...
