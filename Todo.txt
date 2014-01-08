@@ -1,0 +1,22 @@
+1. planning poker? 
+2. hur många arbetsdagar = 1 sprint. Hur många h = 1 arbetsdag? 
+
+3. 1 sprint innehåller = Sprint review, Sprint Retrospective, sprint backlog, burndown chart
+
+4. SCRUM = productBacklog
+
+Allt som allt:
+// ? Detta i Rotmappen...
+1 product backlog = Innehåller ALLT som ska göras, delas upp över sprintar
+1 burndown Chart = uppdateras vartefter (versionhantera alla ändringar..)
+1 Samlade user-stories
+1 Projektetnamn samt info om det (hur mkt 1 sprint är, etc)
+
+// ? Detta i en mapp per sprint!  
+sprint review, sprint retrospective, sprint backlog = uppdateras för varje sprint.
+
+SPRINT BACKLOG = Dela upp varje user-story i arbetstid som krävs..
+
+efter varje sprint så ska Applikationen vara klar och testad, mer funktioner läggs till vid nästa sprint..
+
+Burndown chart = WorkRemaning / Hastighet = Dagar tills sprint är klar
