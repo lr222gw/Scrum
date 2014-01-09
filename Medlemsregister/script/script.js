@@ -6,7 +6,10 @@ var MEDLEMSREGISTER = {
 	
 	master : function(){
 		MEDLEMSREGISTER.registerMember(); // Låter register member köra så att jag kan testa koden...
-		MEDLEMSREGISTER.showMembers()
+		MEDLEMSREGISTER.showMembers();
+		
+		var testPerson = ["Stefan", "Björk", "03666454", "1stefan0020232s"]
+		MEDLEMSREGISTER.members.push(testPerson);
 	},
 	
 	registerMember : function(){
@@ -88,25 +91,58 @@ var MEDLEMSREGISTER = {
 	},
 		
 	showMembers : function(){
-		var  showMembers, membersDiv, i, memberBox;
+		var  showMembers, membersDiv, i, j, memberBox, memberBoxContent;
 		
 		showMembers = document.getElementById("showMembers");
 		
 		showMembers.onclick = function(){
-			
 			membersDiv = document.createElement("div"); // div där allt som har att göra med visandet av medlemmar läggs in..
+			membersDiv.setAttribute("id", "membersDiv");
+			
+			try{
+				if(document.getElementById("membersDiv").className !== "hide"){ // om windowfönsret finns, göm det
+					
+					document.getElementById("membersDiv").remove();					
+					return;				
+				}else{
+					document.getElementById("membersDiv").classList.remove("hide")
+				}
+			}catch(ey){
+				// do nothing
+			}
+			
 			
 			for(i = 0; i < MEDLEMSREGISTER.members.length; i +=1){
 				memberBox = document.createElement("div");
 				memberBox.setAttribute("class", "memberBox");
 				memberBox.innerText = MEDLEMSREGISTER.members[i][0]; // sätter innerText till personens namn
-				for(){
+				
+				for(j = 0; j < MEDLEMSREGISTER.members[i].length; j +=1){
+					memberBoxContent = document.createElement("memberBoxContent");
+					memberBoxContent.setAttribute("class", "memberBoxContent");
+					memberBoxContent.classList.add("hide");
+					memberBoxContent.innerHTML = "Namn: "+MEDLEMSREGISTER.members[i][0]+"<br/>Efternamn: "+MEDLEMSREGISTER.members[i][1]+"<br/>Telefonnummer: "+MEDLEMSREGISTER.members[i][2]+"<br/>Unikt Id: "+MEDLEMSREGISTER.members[i][3];
+					//↑Skapar en plats för innehållet i arrayen, lägger in innehållet för denna medlem...
+					memberBox.appendChild(memberBoxContent);
+					membersDiv.appendChild(memberBox);
 					
+					memberBox.onclick = function(e){
+						if(e.target.children[0].className === "memberBoxContent hide"){
+							e.target.children[0].classList.remove("hide");
+						}else{
+							e.target.children[0].classList.add("hide");
+						}
+						
+					};
 				}
 				
 			}
 			
+			document.getElementById("body").appendChild(membersDiv);
+			
 		};
+		
+		
 	}
 };
 

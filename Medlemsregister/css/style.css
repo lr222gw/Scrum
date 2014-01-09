@@ -9,3 +9,11 @@ display: block;
 .hide {
 	display: none;
 }
+.memberBoxContent {
+	display: block;
+	background-color: rgb(226, 90, 90);
+	padding: 10px;
+	font-family: monospace;
+	line-height: 20px;
+	margin-bottom: 10px;
+}
