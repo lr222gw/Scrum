@@ -21,6 +21,7 @@ SPRINT BACKLOG = Dela upp varje user-story i arbetstid som krävs..(i timmar)
 efter varje sprint så ska Applikationen vara klar och testad, mer funktioner läggs till vid nästa sprint..
 
 Burndown chart = WorkRemaning / Hastighet = Dagar tills sprint är klar
+		 ^den tid ett visst jobb borde ha / tiden jobbet tog = dagar kvar tills klart..
 
 Sprint Retrospective = Vad gick bra/dåligt, hur förbättra?
 
