@@ -77,6 +77,18 @@ var MEDLEMSREGISTER = {
 			
 			if(errorAlreadyExists <= 2){
 				MEDLEMSREGISTER.members.push(regArr);
+				document.getElementById("name").value = "";
+				document.getElementById("lastName").value = "";
+				document.getElementById("cellphone").value = "";
+				
+				if(document.getElementById("membersDiv")){ // om visamedlemmar var öppen när bekräftningen gjordes, stäng den och öppna den. (så den nya datan laddas in...)
+					
+					document.getElementById("membersDiv").remove();
+					
+					MEDLEMSREGISTER.showTheMembers(); // laddar in allt på nytt.. så att det uppdateras
+					
+				}
+				
 				alert("Medlem tillagd!");
 			}
 			
@@ -96,8 +108,25 @@ var MEDLEMSREGISTER = {
 		showMembers = document.getElementById("showMembers");
 		
 		showMembers.onclick = function(){
+			
+			MEDLEMSREGISTER.showTheMembers();
+			
+		};
+		
+		
+	},
+	
+	showTheMembers : function(){
+		var  showMembers, membersDiv, i, j, memberBox, memberBoxContent;
 			membersDiv = document.createElement("div"); // div där allt som har att göra med visandet av medlemmar läggs in..
 			membersDiv.setAttribute("id", "membersDiv");
+			
+			if(document.getElementById("showMembers").value === "Visa registrerade medlemmar"){
+				
+				document.getElementById("showMembers").value = "Dölj registerade medlemmar";
+			}else{
+				document.getElementById("showMembers").value = "Visa registrerade medlemmar";
+			}
 			
 			try{
 				if(document.getElementById("membersDiv").className !== "hide"){ // om windowfönsret finns, göm det
@@ -117,7 +146,7 @@ var MEDLEMSREGISTER = {
 				memberBox.setAttribute("class", "memberBox");
 				memberBox.innerText = MEDLEMSREGISTER.members[i][0]; // sätter innerText till personens namn
 				
-				for(j = 0; j < MEDLEMSREGISTER.members[i].length; j +=1){
+				for(j = 0; j < MEDLEMSREGISTER.members[i].length; j +=1){ // denna behöver egentligen inte köras 4 ggr... 
 					memberBoxContent = document.createElement("memberBoxContent");
 					memberBoxContent.setAttribute("class", "memberBoxContent");
 					memberBoxContent.classList.add("hide");
@@ -139,10 +168,6 @@ var MEDLEMSREGISTER = {
 			}
 			
 			document.getElementById("body").appendChild(membersDiv);
-			
-		};
-		
-		
 	}
 };
 

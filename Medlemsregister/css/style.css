@@ -9,6 +9,9 @@ display: block;
 .hide {
 	display: none;
 }
+#membersDiv .hide {
+	display: none;
+}
 .memberBoxContent {
 	display: block;
 	background-color: rgb(226, 90, 90);
