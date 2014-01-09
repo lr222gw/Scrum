@@ -6,6 +6,7 @@ var MEDLEMSREGISTER = {
 	
 	master : function(){
 		MEDLEMSREGISTER.registerMember(); // Låter register member köra så att jag kan testa koden...
+		MEDLEMSREGISTER.showMembers()
 	},
 	
 	registerMember : function(){
@@ -73,6 +74,7 @@ var MEDLEMSREGISTER = {
 			
 			if(errorAlreadyExists <= 2){
 				MEDLEMSREGISTER.members.push(regArr);
+				alert("Medlem tillagd!");
 			}
 			
 			
@@ -82,10 +84,30 @@ var MEDLEMSREGISTER = {
 		backButton.onclick = function(){
 			regform.classList.add("hide");
 			document.getElementById("container").classList.remove("hide");
-		}
-	}
+		};
+	},
 		
-	
+	showMembers : function(){
+		var  showMembers, membersDiv, i, memberBox;
+		
+		showMembers = document.getElementById("showMembers");
+		
+		showMembers.onclick = function(){
+			
+			membersDiv = document.createElement("div"); // div där allt som har att göra med visandet av medlemmar läggs in..
+			
+			for(i = 0; i < MEDLEMSREGISTER.members.length; i +=1){
+				memberBox = document.createElement("div");
+				memberBox.setAttribute("class", "memberBox");
+				memberBox.innerText = MEDLEMSREGISTER.members[i][0]; // sätter innerText till personens namn
+				for(){
+					
+				}
+				
+			}
+			
+		};
+	}
 };
 
 window.onload = MEDLEMSREGISTER.master();
