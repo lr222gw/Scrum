@@ -9,7 +9,7 @@ var MEDLEMSREGISTER = {
 	},
 	
 	registerMember : function(){
-		var sendButton, name, lastName, cellphone, uniqueId, i, j, errorAlreadyExists, errorMessage, errorEnum;
+		var sendButton, name, lastName, cellphone, uniqueId, i, j, errorAlreadyExists, errorMessage, errorEnum, regform, addMemberButton, backButton;
 		errorAlreadyExists = 0;		
 		errorEnum ={
 			0 : "Namn",
@@ -17,8 +17,21 @@ var MEDLEMSREGISTER = {
 			2 : "Telefonnummer"
 			
 		};
+				
+		regform = document.getElementById("regform"); // Döljer formuläret som standard... 
+		regform.classList.add("hide");
 		
+		addMemberButton = document.getElementById("addMember"); // hämtar ner en knapp som ska användas för att visa formuläret..
+		backButton = document.getElementById("backButton");
 		sendButton = document.getElementById("sendbutton");
+		
+		addMemberButton.onclick = function(){
+			regform.classList.remove("hide");
+			document.getElementById("container").classList.add("hide");
+		};
+		
+		
+		
 		
 		sendButton.onclick = function(){
 			
@@ -66,6 +79,10 @@ var MEDLEMSREGISTER = {
 	
 		};
 		
+		backButton.onclick = function(){
+			regform.classList.add("hide");
+			document.getElementById("container").classList.remove("hide");
+		}
 	}
 		
 	

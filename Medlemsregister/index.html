@@ -7,7 +7,13 @@
 	</head>
 	<body>
 		<div id="container">
-			<form>
+			
+			<input type="button" value="Lägg till ny medlem" id="addMember">
+			
+			
+			
+		</div>
+			<form id="regform">
 				<fieldset>
 					<legend>Registrations Formulär</legend>
 					<label for="name">Namn</label>
@@ -15,16 +21,13 @@
 					<label for="lastName">Efternamn</label>
 					<input type="text" id="lastName" />
 					<label for="cellphone">Telefonnummer</label>
-					<input type="tel" id="cellphone" />
-					
+					<input type="tel" id="cellphone" />					
 				</fieldset>
 				<input type="button" value="Registrera" id="sendbutton">
+				<input type="button" value="Gå Tillbaka" id="backButton">
 				
 				
 			</form>
-			
-		</div>
-		
 		
 		<!--↓script, ↑övrig HTML-kod  -->
 		<script type="text/javascript" src="script/script.js"></script>
