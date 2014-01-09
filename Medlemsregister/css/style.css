@@ -2,3 +2,6 @@ body {
 	background-color: red;
 }
 
+input {
+display: block;
+}
