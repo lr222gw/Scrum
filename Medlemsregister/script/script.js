@@ -15,7 +15,7 @@ var MEDLEMSREGISTER = {
 	},
 	
 	registerMember : function(){
-		var sendButton, name, lastName, cellphone, uniqueId, i, j, errorAlreadyExists, errorMessage, errorEnum, regform, addMemberButton, backButton;
+		var sendButton, name, lastName, cellphone, uniqueId, i, j, errorAlreadyExists, errorMessage, errorEnum, regform, addMemberButton, backButton, toUpperCaser;
 		errorAlreadyExists = 0;		
 		errorEnum ={
 			0 : "Namn",
@@ -36,17 +36,18 @@ var MEDLEMSREGISTER = {
 			document.getElementById("container").classList.add("hide");
 		};
 		
-		
-		
-		
+		toUpperCaser = function(aString){ // denna metod tagen från http://stackoverflow.com/questions/1026069/capitalize-the-first-letter-of-string-in-javascript
+				return aString.charAt(0).toUpperCase() + aString.slice(1);
+		};
+
 		sendButton.onclick = function(){
 			
 			var regArr = [];					
 			
-			name = document.getElementById("name").value;
-			lastName = document.getElementById("lastName").value;
-			cellphone = document.getElementById("cellphone").value;
-			uniqueId = name + (Math.random() *(1000 + 1)); 
+			name = toUpperCaser(document.getElementById("name").value);
+			lastName = toUpperCaser(document.getElementById("lastName").value);
+			cellphone = toUpperCaser(document.getElementById("cellphone").value);
+			uniqueId = name + (Math.random() *(1000 + 1)); 						
 			
 			regArr.push(name, lastName, cellphone, uniqueId); //lägger in regDatan i en array..
 			
@@ -171,7 +172,7 @@ var MEDLEMSREGISTER = {
 			for(i = 0; i < MEDLEMSREGISTER.members.length; i +=1){
 				memberBox = document.createElement("div");
 				memberBox.setAttribute("class", "memberBox");
-				memberBox.innerText = MEDLEMSREGISTER.members[i][0]; // sätter innerText till personens namn
+				memberBox.innerText = MEDLEMSREGISTER.members[i][0]+" "+MEDLEMSREGISTER.members[i][1]; // sätter innerText till personens namn ooch efternamn
 				
 				for(j = 0; j < MEDLEMSREGISTER.members[i].length; j +=1){ // denna behöver egentligen inte köras 4 ggr... 
 					memberBoxContent = document.createElement("memberBoxContent");
