@@ -1,0 +1,4 @@
+I denna sprint har jag byggt upp grunden till applikationen. 
+Jag har skapat ett registrations formulär, byggt upp en funktion för att lista upp alla registrerade personer. Det går även att trycka på en persons namn för att få ytterligare information.
+all data som läggs in hamnar på localStorage, det är alltså min lösning för att spara data.
+Har stött på några buggar, men hunnit fixa alla (som är hittade) till slutet på denna sprint.

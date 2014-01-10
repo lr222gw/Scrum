@@ -1,0 +1,4 @@
+Generellt så har allt gått bra, har inte fastnat på några större problem. 
+Jag var nog lite tidsskeptisk när jag skrev min sprint backlogg för jag har inte behövt att lägga ner all tid som jag angav i den. 
+Backloggen är kanske inte helt korrekt då det är svårt att uppskatta ungefär hur många timmar man har *jobbat*. Utöver det som står i backloggen har jag även gjort lite annat, jag lade tillexempel in en funktion för att visa information om medlemmar. 
+Jag kunde nog lagt ner lite mer uppgifter i sprintbackloggen, men om man bortser från det så verkar det bara vara att köra vidare på den nivån jag har satt.
