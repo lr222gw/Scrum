@@ -7,6 +7,8 @@ var MEDLEMSREGISTER = {
 	master : function(){
 		MEDLEMSREGISTER.registerMember(); // Låter register member köra så att jag kan testa koden...
 		MEDLEMSREGISTER.showMembers();
+		MEDLEMSREGISTER.loadFromLocalStorage();
+		
 		
 		var testPerson = ["Stefan", "Björk", "03666454", "1stefan0020232s"]
 		MEDLEMSREGISTER.members.push(testPerson);
@@ -77,7 +79,8 @@ var MEDLEMSREGISTER = {
 			
 			if(errorAlreadyExists <= 2){
 				MEDLEMSREGISTER.members.push(regArr);
-				MEDLEMSREGISTER.saveToDoc(regArr); // utöver att medlemen läggs in i arrayen som behandlar medlemmar så ska det också sparas ner till en textfil...
+				MEDLEMSREGISTER.saveToLocalStorage(regArr); // utöver att medlemen läggs in i så sparas den i localStorage..
+				
 				document.getElementById("name").value = "";
 				document.getElementById("lastName").value = "";
 				document.getElementById("cellphone").value = "";
@@ -103,8 +106,27 @@ var MEDLEMSREGISTER = {
 		};
 	},
 	
-	saveToDoc : function(regArr){ // Viss kod tagen härifrån: http://www.youtube.com/watch?v=woNQ2MA_0XU
+	saveToLocalStorage : function(regArr){ 
+		var toLS, localStorageName;		
+		
+		localStorageName = "member" + localStorage.length;
+		
+		toLS = JSON.stringify(regArr); // gör om regArr till JSON format...
+		
+		localStorage[localStorageName] = (toLS); // sparar ner 
+
+	},
 	
+	loadFromLocalStorage : function(){
+		var i , data;
+		
+		for(i = 0; i < localStorage.length; i +=1){
+		
+			data = JSON.parse(localStorage["member" +i]); // Läser in första objektet från LocalStorage, parsar om och sparar ner i "data"
+			MEDLEMSREGISTER.members.push(data); // Lägger in den nyhämtade datan i members arrayen som sidan använder sig av för uppvisning..
+			
+		}
+		
 	},
 		
 	showMembers : function(){
