@@ -156,10 +156,19 @@ var MEDLEMSREGISTER = {
 					membersDiv.appendChild(memberBox);
 					
 					memberBox.onclick = function(e){
-						if(e.target.children[0].className === "memberBoxContent hide"){
-							e.target.children[0].classList.remove("hide");
+						var whatWasPressed;
+						
+						whatWasPressed = e.target;
+						
+						if(e.target.className === "memberBoxContent"){ // om "e" inte är memberBox, gör "e" till memberBox <-- för att annars så hamnar hide på fel, om man tex trycker på memberBoxContent...
+							whatWasPressed = e.target.parentNode;
+							return;
+						}
+						
+						if(whatWasPressed.children[0].className === "memberBoxContent hide"){
+							whatWasPressed.children[0].classList.remove("hide");
 						}else{
-							e.target.children[0].classList.add("hide");
+							whatWasPressed.children[0].classList.add("hide");
 						}
 						
 					};
