@@ -209,13 +209,19 @@ var MEDLEMSREGISTER = {
 					};
 					
 					removeButton.onclick = function(e){
-						var getId, regExForId, result;
+						var getId, regExForId, result, i, memberData, result1;
 												
 						getId = e.target.parentElement.firstChild.innerHTML;
 						
-						regExForId =/^[Unikt Id: .*]/i;
+						regExForId =/Unikt Id: .+/i;
 						
-						result = getId.match(regExForId); 
+						result = getId.match(regExForId);
+						
+						result = result[0].split("Unikt Id: "); // Nu så ligger det unika Id´t i result[1]...
+						
+						for(i = 0; i < localStorage.length; i +=1){
+							memberData = JSON.stringify(JSON.parse(localStorage["member"+ i]));
+						}
 						
 						e.target.parentNode.parentNode.remove();
 						
