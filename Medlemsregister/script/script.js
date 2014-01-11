@@ -115,7 +115,7 @@ var MEDLEMSREGISTER = {
 			try{
 				lsSpace = JSON.parse(localStorage["member" + i]); // hämtar ner platser och tolkar om innehållet i LocalStorage
 			}catch(error){
-				console.log("Detta error visas första gången man lägger in någon: "+ error);
+				console.log("Detta meddelande visas varje gång du inte skriver över en tom plats..: "+ error);
 				lsSpace = JSON.stringify(localStorage["member" + i]); // I första fall testa parse(Den skriver över undefined om den är satt i removeButton funktionen, ej om den är helt tom..), om parse inte fungerar använd stringify!
 			}
 			
