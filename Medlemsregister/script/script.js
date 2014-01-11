@@ -112,7 +112,12 @@ var MEDLEMSREGISTER = {
 		
 		for(i = 0; i < localStorage.length + 1 ; i+= 1){ // Letar igenom localstorage efter lediga namn. +1 innebär att om  det inte finns några lediga namn så kollar den 1 extra siffra (vilket som är tom) och då blir det id't.
 			
-			lsSpace = localStorage["member" + i];
+			try{
+				lsSpace = JSON.parse(localStorage["member" + i]); // hämtar ner platser och tolkar om innehållet i LocalStorage
+			}catch(error){
+				console.log("Detta error visas första gången man lägger in någon: "+ error);
+				lsSpace = JSON.stringify(localStorage["member" + i]); // I första fall testa parse(Den skriver över undefined om den är satt i removeButton funktionen, ej om den är helt tom..), om parse inte fungerar använd stringify!
+			}
 			
 			if(lsSpace === undefined || lsSpace === "undefined"){ // om platsen är ledig, använd den
 				
@@ -136,8 +141,9 @@ var MEDLEMSREGISTER = {
 		for(i = 0; i < localStorage.length; i +=1){
 		
 			data = JSON.parse(localStorage["member" +i]); // Läser in första objektet från LocalStorage, parsar om och sparar ner i "data"
-			MEDLEMSREGISTER.members.push(data); // Lägger in den nyhämtade datan i members arrayen som sidan använder sig av för uppvisning..
-			
+			if(data !== "undefined"){ // Om datan ej är angiven (ledig) så skippa den..
+				MEDLEMSREGISTER.members.push(data); // Lägger in den nyhämtade datan i members arrayen som sidan använder sig av för uppvisning..
+			}
 		}
 		
 	},
@@ -207,7 +213,7 @@ var MEDLEMSREGISTER = {
 						
 						whatWasPressed = e.target;
 						
-						if(e.target.className === "memberBoxContent"|| e.target.id ==="removeMemberButton"){ // om "e" inte är memberBox, gör "e" till memberBox <-- för att annars så hamnar hide på fel, om man tex trycker på memberBoxContent...
+						if(e.target.className === "memberBoxContent"|| e.target.id ==="removeMemberButton" ||e.target.nodeName === "P"){ // om "e" inte är memberBox, gör "e" till memberBox <-- för att annars så hamnar hide på fel, om man tex trycker på memberBoxContent...
 							whatWasPressed = e.target.parentNode;
 							return;
 						}
@@ -239,7 +245,13 @@ var MEDLEMSREGISTER = {
 							memberThatMatched = memberData.match(regExForMatch);
 							if(memberThatMatched !== null && memberThatMatched !== undefined){ // Ifall for-loopen hittat den medlem som ska tas bort, avbryt loopen och ta bort användaren..
 								localStorage.removeItem("member"+ i); // kod för att ta bort den specifika medlemmen från localStorage..
-								localStorage["member"+ i] = JSON.parse(undefined); // ser till att rutan inte försvinner (blir error på andra ställen då..) utan görs ledig för en ny medlem!
+								localStorage["member"+ i] = JSON.stringify("undefined"); // ser till att rutan inte försvinner (blir error på andra ställen då..) utan görs ledig för en ny medlem!
+								
+								
+								MEDLEMSREGISTER.members = []; //tar bort allt i members,
+								MEDLEMSREGISTER.loadFromLocalStorage(); // läser in aktuella medlemmar på nytt..
+								
+								
 								break;
 							}
 						}
