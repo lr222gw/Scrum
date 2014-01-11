@@ -220,7 +220,7 @@ var MEDLEMSREGISTER = {
 						
 						whatWasPressed = e.target;
 						
-						if(e.target.className === "memberBoxContent"|| e.target.id ==="removeMemberButton" ||e.target.nodeName === "P"){ // om "e" inte är memberBox, gör "e" till memberBox <-- för att annars så hamnar hide på fel, om man tex trycker på memberBoxContent...
+						if(e.target.className === "memberBoxContent"|| e.target.id ==="removeMemberButton" ||e.target.nodeName === "P" || e.target.id === "editMemberButton"){ // om "e" inte är memberBox, gör "e" till memberBox <-- för att annars så hamnar hide på fel, om man tex trycker på memberBoxContent...
 							whatWasPressed = e.target.parentNode;
 							return;
 						}
@@ -234,6 +234,11 @@ var MEDLEMSREGISTER = {
 					};
 					
 					removeButton.onclick = function(e){
+						var answer;
+						answer = confirm("Är du säker på att du vill ta bort denna person?");
+						if(answer === false){
+							return;
+						}
 						MEDLEMSREGISTER.findAMember(e, MEDLEMSREGISTER.deleteChosenMember);
 						e.target.parentNode.parentNode.remove();
 						
@@ -285,7 +290,7 @@ var MEDLEMSREGISTER = {
 	},
 	
 	editChosenMember : function(i){
-		var member, boxHolder, nameChange, nameChangeInput, lastNameChange, lastNameChangeInput, phoneChange, phoneChangeInput, uniqueIdChange, uniqueIdChangeInput, saveButton, cancelButton;
+		var member, boxHolder, nameChange, nameChangeInput, lastNameChange, lastNameChangeInput, phoneChange, phoneChangeInput, uniqueIdChange, uniqueIdChangeInput, saveButton, cancelButton, answer;
 		member = JSON.parse(localStorage["member" + i]);
 		
 		boxHolder = document.createElement("div");
@@ -293,7 +298,7 @@ var MEDLEMSREGISTER = {
 		
 		nameChange = document.createElement("div");
 		nameChange.setAttribute("id", "nameChange");
-		nameChange.innerHTML = "Name: ";		
+		nameChange.innerHTML = "Namn: ";		
 		boxHolder.appendChild(nameChange);
 		nameChangeInput = document.createElement("input");
 		nameChangeInput.setAttribute("id", "nameChangeInput");
@@ -341,8 +346,34 @@ var MEDLEMSREGISTER = {
 		
 		document.getElementById("body").appendChild(boxHolder);
 		
+		saveButton.onclick = function(){
+			var theMember;
+			answer = confirm("Är du säker på att du vill ändra?");
+			if(answer === false){
+				return;
+			}
+			
+			theMember = JSON.parse(localStorage["member"+i]); // hämtar ner från localStorage med hjälp JSON.stringify
+			theMember[0] = nameChangeInput.value;//sparar ner det nya namnet, osv..
+			theMember[1] = lastNameChangeInput.value;
+			theMember[2] = phoneChangeInput.value;
+			theMember[3] = uniqueIdChangeInput.value;
+			localStorage["member"+i] = JSON.stringify(theMember); //formaterar om theMember så att den kan skickas tillbaka till localStorage
+			document.getElementById("boxForChange").remove();
+			
+			MEDLEMSREGISTER.members = []; //tar bort allt i members,
+			MEDLEMSREGISTER.loadFromLocalStorage(); // läser in aktuella medlemmar i LocalStorage..
+			MEDLEMSREGISTER.showTheMembers(); //läser in alla medlemmar i listan...
+			
+		};
 		
-		
+		cancelButton.onclick = function(){
+			answer = confirm("Är du säker på att du vill inte vill spara dina ändringar?");
+			if(answer === false){
+				return;
+			}
+			document.getElementById("boxForChange").remove();
+		};
 		
 	}
 };
