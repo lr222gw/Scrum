@@ -290,16 +290,27 @@ var MEDLEMSREGISTER = {
 	},
 	
 	editChosenMember : function(i){
-		var member, boxHolder, nameChange, nameChangeInput, lastNameChange, lastNameChangeInput, phoneChange, phoneChangeInput, uniqueIdChange, uniqueIdChangeInput, saveButton, cancelButton, answer;
+		var member, boxHolder, nameChange, nameChangeInput, lastNameChange, lastNameChangeInput, phoneChange, phoneChangeInput, uniqueIdChange, uniqueIdChangeInput, saveButton, cancelButton, answer, h1, fieldset, legend;
 		member = JSON.parse(localStorage["member" + i]);
 		
 		boxHolder = document.createElement("div");
 		boxHolder.setAttribute("id", "boxForChange");
+		h1 =  document.createElement("h1");
+		h1.setAttribute("id", "h1TaggForEditMember");
+		h1.innerHTML = "Ändra personuppgifter";
+		boxHolder.appendChild(h1);
+		
+		fieldset = document.createElement("fieldset");
+		boxHolder.appendChild(fieldset);
+		legend = document.createElement("legend");
+		legend.innerHTML = "Formulär för " + member[0] + " " + member[1];
+		fieldset.appendChild(legend);
+		
 		
 		nameChange = document.createElement("div");
 		nameChange.setAttribute("id", "nameChange");
 		nameChange.innerHTML = "Namn: ";		
-		boxHolder.appendChild(nameChange);
+		fieldset.appendChild(nameChange);
 		nameChangeInput = document.createElement("input");
 		nameChangeInput.setAttribute("id", "nameChangeInput");
 		nameChangeInput.setAttribute("value", member[0]);
@@ -308,7 +319,7 @@ var MEDLEMSREGISTER = {
 		lastNameChange = document.createElement("div");
 		lastNameChange.setAttribute("id", "lastNameChange");
 		lastNameChange.innerHTML = "Efternamn: ";
-		boxHolder.appendChild(lastNameChange);
+		fieldset.appendChild(lastNameChange);
 		lastNameChangeInput = document.createElement("input");
 		lastNameChangeInput.setAttribute("id", "lastNameChangeInput");
 		lastNameChangeInput.setAttribute("value", member[1]);
@@ -317,7 +328,7 @@ var MEDLEMSREGISTER = {
 		phoneChange = document.createElement("div");
 		phoneChange.setAttribute("id", "phoneChange");
 		phoneChange.innerHTML = "Telefonnummer: ";
-		boxHolder.appendChild(phoneChange);
+		fieldset.appendChild(phoneChange);
 		phoneChangeInput = document.createElement("input");
 		phoneChangeInput.setAttribute("id", "phoneChangeInput");
 		phoneChangeInput.setAttribute("value", member[2]);
@@ -326,7 +337,7 @@ var MEDLEMSREGISTER = {
 		uniqueIdChange = document.createElement("div");
 		uniqueIdChange.setAttribute("id", "uniqueIdChange");
 		uniqueIdChange.innerHTML = "Unikt Id: ";
-		boxHolder.appendChild(uniqueIdChange);
+		fieldset.appendChild(uniqueIdChange);
 		uniqueIdChangeInput = document.createElement("input");
 		uniqueIdChangeInput.setAttribute("id", "uniqueIdChangeInput");
 		uniqueIdChangeInput.setAttribute("value", member[3]);
@@ -368,10 +379,7 @@ var MEDLEMSREGISTER = {
 		};
 		
 		cancelButton.onclick = function(){
-			answer = confirm("Är du säker på att du vill inte vill spara dina ändringar?");
-			if(answer === false){
-				return;
-			}
+
 			document.getElementById("boxForChange").remove();
 		};
 		

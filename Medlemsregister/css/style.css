@@ -1,12 +1,13 @@
 body {
 	background-color: red;
+	font-family: sans-serif;
 }
 
 input {
 display: block;
 }
 
-.hide {
+#body .hide{
 	display: none;
 }
 #membersDiv .hide {
@@ -23,10 +24,49 @@ display: block;
 #boxForChange {
 	position: fixed;
 	width: 40%;
-	height: 450px;
+	height: 300px;
 	background-color: whitesmoke;
 	margin: 0 auto;
 	display: block;
 	left: calc( 50% - 22% );
 	top: calc(50% - 25%);
+	padding: 15px;
+	font-family: sans-serif;
+	padding-top: 45px;
+}
+#h1TaggForEditMember {
+	margin-top: -25px;
+	margin-bottom: 15px;
+}
+
+#regform {
+	position: fixed;
+	width: 40%;
+	height: 300px;
+	background-color: whitesmoke;
+	margin: 0 auto;
+	display: block;
+	left: calc( 50% - 22% );
+	top: calc(50% - 25%);
+	padding: 15px;
+	font-family: sans-serif;
+}
+#regform h1 {
+	margin-top: 3px;
+}
+
+.memberBox {
+border: rgb(194, 0, 0) solid 2px;
+background-color: rgb(255, 47, 47);
+padding: 3px;
+width: 95%;
+margin: 0 auto;
+margin-bottom: 5px;
+}
+#membersDiv {
+background-color: rgb(255, 108, 108);
+width: 40%;
+max-height: 100%;
+padding-bottom: 10px;
+padding-top: 5px;
 }
