@@ -65,7 +65,7 @@ var MEDLEMSREGISTER = {
 						
 						errorMessage += "\n " + errorEnum[j]+ ": " + regArr[j]+ " " ;
 					}	
-					if(errorAlreadyExists === MEDLEMSREGISTER.members[i].length-1){// om längden på members nuvarande arrayobj är samma som 3
+					if(errorAlreadyExists === MEDLEMSREGISTER.members[i].length-1){// om längden på members nuvarande arrayobj är samma som 3 skriv ut error meddelandet...
 						
 						alert(errorMessage);
 						break;
@@ -145,7 +145,7 @@ var MEDLEMSREGISTER = {
 	},
 	
 	showTheMembers : function(){
-		var  showMembers, membersDiv, i, j, memberBox, memberBoxContent;
+		var  showMembers, membersDiv, i, j, memberBox, memberBoxContent, removeButton;
 			membersDiv = document.createElement("div"); // div där allt som har att göra med visandet av medlemmar läggs in..
 			membersDiv.setAttribute("id", "membersDiv");
 			
@@ -178,8 +178,15 @@ var MEDLEMSREGISTER = {
 					memberBoxContent = document.createElement("memberBoxContent");
 					memberBoxContent.setAttribute("class", "memberBoxContent");
 					memberBoxContent.classList.add("hide");
-					memberBoxContent.innerHTML = "Namn: "+MEDLEMSREGISTER.members[i][0]+"<br/>Efternamn: "+MEDLEMSREGISTER.members[i][1]+"<br/>Telefonnummer: "+MEDLEMSREGISTER.members[i][2]+"<br/>Unikt Id: "+MEDLEMSREGISTER.members[i][3];
-					//↑Skapar en plats för innehållet i arrayen, lägger in innehållet för denna medlem...
+					memberBoxContent.innerHTML = "<p> Namn: "+MEDLEMSREGISTER.members[i][0]+"<br/> Efternamn: "+MEDLEMSREGISTER.members[i][1]+"<br/> Telefonnummer: "+MEDLEMSREGISTER.members[i][2]+"<br/> Unikt Id: " + MEDLEMSREGISTER.members[i][3] + "</p>";
+					//↑Skapar en plats för innehållet i arrayen, lägger in innehållet för denna medlem...					
+					//↓Skapar knapp för att ta bort medlem... 
+					removeButton = document.createElement("input");
+					removeButton.setAttribute("id", "removeMemberButton");
+					removeButton.setAttribute("type", "button");
+					removeButton.setAttribute("Value", "Ta bort denna person");
+					memberBoxContent.appendChild(removeButton);
+					
 					memberBox.appendChild(memberBoxContent);
 					membersDiv.appendChild(memberBox);
 					
@@ -188,7 +195,7 @@ var MEDLEMSREGISTER = {
 						
 						whatWasPressed = e.target;
 						
-						if(e.target.className === "memberBoxContent"){ // om "e" inte är memberBox, gör "e" till memberBox <-- för att annars så hamnar hide på fel, om man tex trycker på memberBoxContent...
+						if(e.target.className === "memberBoxContent"|| e.target.id ==="removeMemberButton"){ // om "e" inte är memberBox, gör "e" till memberBox <-- för att annars så hamnar hide på fel, om man tex trycker på memberBoxContent...
 							whatWasPressed = e.target.parentNode;
 							return;
 						}
@@ -198,6 +205,19 @@ var MEDLEMSREGISTER = {
 						}else{
 							whatWasPressed.children[0].classList.add("hide");
 						}
+						
+					};
+					
+					removeButton.onclick = function(e){
+						var getId, regExForId, result;
+												
+						getId = e.target.parentElement.firstChild.innerHTML;
+						
+						regExForId =/^[Unikt Id: .*]/i;
+						
+						result = getId.match(regExForId); 
+						
+						e.target.parentNode.parentNode.remove();
 						
 					};
 				}
