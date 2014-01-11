@@ -163,7 +163,7 @@ var MEDLEMSREGISTER = {
 	},
 	
 	showTheMembers : function(){
-		var  showMembers, membersDiv, i, j, memberBox, memberBoxContent, removeButton;
+		var  showMembers, membersDiv, i, j, memberBox, memberBoxContent, removeButton, editButton;
 			membersDiv = document.createElement("div"); // div där allt som har att göra med visandet av medlemmar läggs in..
 			membersDiv.setAttribute("id", "membersDiv");
 			
@@ -205,6 +205,13 @@ var MEDLEMSREGISTER = {
 					removeButton.setAttribute("Value", "Ta bort denna person");
 					memberBoxContent.appendChild(removeButton);
 					
+					editButton = document.createElement("input");
+					editButton.setAttribute("id", "editMemberButton");
+					editButton.setAttribute("type", "button");
+					editButton.setAttribute("Value", "Ändra information för denna person");
+					memberBoxContent.appendChild(editButton);
+					
+					
 					memberBox.appendChild(memberBoxContent);
 					membersDiv.appendChild(memberBox);
 					
@@ -227,43 +234,58 @@ var MEDLEMSREGISTER = {
 					};
 					
 					removeButton.onclick = function(e){
-						var getId, regExForId, result, i, memberData, regExForMatch, memberThatMatched;
-												
-						getId = e.target.parentElement.firstChild.innerHTML;
-						
-						regExForId =/Unikt Id: .+/i;
-						
-						result = getId.match(regExForId);
-						
-						result = result[0].split("Unikt Id: "); // Nu så ligger det unika Id´t i result[1]...
-						
-						regExForMatch = new RegExp(result[1]); // skapar ett nytt regulärt uttryck med det unika id't...
-						
-						for(i = 0; i < localStorage.length; i +=1){ // letar upp vilken användare som hade id't..
-							memberData = JSON.stringify(JSON.parse(localStorage["member"+ i]));
-							
-							memberThatMatched = memberData.match(regExForMatch);
-							if(memberThatMatched !== null && memberThatMatched !== undefined){ // Ifall for-loopen hittat den medlem som ska tas bort, avbryt loopen och ta bort användaren..
-								localStorage.removeItem("member"+ i); // kod för att ta bort den specifika medlemmen från localStorage..
-								localStorage["member"+ i] = JSON.stringify("undefined"); // ser till att rutan inte försvinner (blir error på andra ställen då..) utan görs ledig för en ny medlem!
-								
-								
-								MEDLEMSREGISTER.members = []; //tar bort allt i members,
-								MEDLEMSREGISTER.loadFromLocalStorage(); // läser in aktuella medlemmar på nytt..
-								
-								
-								break;
-							}
-						}
-						
+						MEDLEMSREGISTER.findAMember(e, MEDLEMSREGISTER.deleteChosenMember);
 						e.target.parentNode.parentNode.remove();
 						
+					};
+					
+					editButton.onclick = function(e){
+						MEDLEMSREGISTER.findAMember(e, MEDLEMSREGISTER.editChosenMember);
 					};
 				}
 				
 			}
 			
 			document.getElementById("body").appendChild(membersDiv);
+	},
+	
+	findAMember : function(e, whatToDo){ // Denna metod kan bara användas av knappar implementerade i personernas information...
+		var getId, regExForId, result, i, memberData, regExForMatch, memberThatMatched;
+												
+		getId = e.target.parentElement.firstChild.innerHTML;
+		
+		regExForId =/Unikt Id: .+/i;
+		
+		result = getId.match(regExForId);
+		
+		result = result[0].split("Unikt Id: "); // Nu så ligger det unika Id´t i result[1]...
+		
+		regExForMatch = new RegExp(result[1]); // skapar ett nytt regulärt uttryck med det unika id't...
+		
+		for(i = 0; i < localStorage.length; i +=1){ // letar upp vilken användare som hade id't..
+			memberData = JSON.stringify(JSON.parse(localStorage["member"+ i]));
+			
+			memberThatMatched = memberData.match(regExForMatch);
+			if(memberThatMatched !== null && memberThatMatched !== undefined){ // Ifall for-loopen hittat den medlem som man vill göra något med, utför det och sen avsluta loopen..
+				
+				whatToDo(i);
+				
+				break;
+			}
+		}
+	},
+	
+	deleteChosenMember : function(i){
+		localStorage.removeItem("member"+ i); // kod för att ta bort den specifika medlemmen från localStorage..
+		localStorage["member"+ i] = JSON.stringify("undefined"); // ser till att rutan inte försvinner (blir error på andra ställen då..) utan görs ledig för en ny medlem!
+		
+		
+		MEDLEMSREGISTER.members = []; //tar bort allt i members,
+		MEDLEMSREGISTER.loadFromLocalStorage(); // läser in aktuella medlemmar på nytt..
+	},
+	
+	editChosenMember : function(i){
+		
 	}
 };
 
