@@ -10,8 +10,8 @@ var MEDLEMSREGISTER = {
 		MEDLEMSREGISTER.loadFromLocalStorage();
 		
 		
-		var testPerson = ["Stefan", "Björk", "03666454", "1stefan0020232s"]
-		MEDLEMSREGISTER.members.push(testPerson);
+		//var testPerson = ["Stefan", "Björk", "03666454", "1stefan0020232s"]
+		//MEDLEMSREGISTER.members.push(testPerson);
 	},
 	
 	registerMember : function(){
@@ -108,9 +108,21 @@ var MEDLEMSREGISTER = {
 	},
 	
 	saveToLocalStorage : function(regArr){ 
-		var toLS, localStorageName;		
+		var toLS, localStorageName, i, lsSpace, newUserName;		
 		
-		localStorageName = "member" + localStorage.length;
+		for(i = 0; i < localStorage.length + 1 ; i+= 1){ // Letar igenom localstorage efter lediga namn. +1 innebär att om  det inte finns några lediga namn så kollar den 1 extra siffra (vilket som är tom) och då blir det id't.
+			
+			lsSpace = localStorage["member" + i];
+			
+			if(lsSpace === undefined || lsSpace === "undefined"){ // om platsen är ledig, använd den
+				
+				newUserName = "member" + i;
+				break;
+			}
+			
+		}
+		
+		localStorageName = newUserName;
 		
 		toLS = JSON.stringify(regArr); // gör om regArr till JSON format...
 		
@@ -209,7 +221,7 @@ var MEDLEMSREGISTER = {
 					};
 					
 					removeButton.onclick = function(e){
-						var getId, regExForId, result, i, memberData, result1;
+						var getId, regExForId, result, i, memberData, regExForMatch, memberThatMatched;
 												
 						getId = e.target.parentElement.firstChild.innerHTML;
 						
@@ -219,8 +231,17 @@ var MEDLEMSREGISTER = {
 						
 						result = result[0].split("Unikt Id: "); // Nu så ligger det unika Id´t i result[1]...
 						
-						for(i = 0; i < localStorage.length; i +=1){
+						regExForMatch = new RegExp(result[1]); // skapar ett nytt regulärt uttryck med det unika id't...
+						
+						for(i = 0; i < localStorage.length; i +=1){ // letar upp vilken användare som hade id't..
 							memberData = JSON.stringify(JSON.parse(localStorage["member"+ i]));
+							
+							memberThatMatched = memberData.match(regExForMatch);
+							if(memberThatMatched !== null && memberThatMatched !== undefined){ // Ifall for-loopen hittat den medlem som ska tas bort, avbryt loopen och ta bort användaren..
+								localStorage.removeItem("member"+ i); // kod för att ta bort den specifika medlemmen från localStorage..
+								localStorage["member"+ i] = JSON.parse(undefined); // ser till att rutan inte försvinner (blir error på andra ställen då..) utan görs ledig för en ny medlem!
+								break;
+							}
 						}
 						
 						e.target.parentNode.parentNode.remove();
