@@ -47,7 +47,7 @@ var MEDLEMSREGISTER = {
 			name = toUpperCaser(document.getElementById("name").value);
 			lastName = toUpperCaser(document.getElementById("lastName").value);
 			cellphone = toUpperCaser(document.getElementById("cellphone").value);
-			uniqueId = name + (Math.random() *(1000 + 1)); 						
+			uniqueId = name + Math.floor(Math.random() *(1000 + 1)); 						
 			
 			regArr.push(name, lastName, cellphone, uniqueId); //lägger in regDatan i en array..
 			
@@ -74,7 +74,7 @@ var MEDLEMSREGISTER = {
 				}
 			
 				while(MEDLEMSREGISTER.members[i][3] === regArr[3]){ // om medlemens id ej är unikt, så ändra det till något som blir unikt..
-					regArr[3] = i + name + (Math.random() *(1000 + 1)); 
+					regArr[3] = i + name + Math.floor(Math.random() *(1000 + 1)); 
 				}
 			}
 			
@@ -252,11 +252,11 @@ var MEDLEMSREGISTER = {
 	findAMember : function(e, whatToDo){ // Denna metod kan bara användas av knappar implementerade i personernas information...
 		var getId, regExForId, result, i, memberData, regExForMatch, memberThatMatched;
 												
-		getId = e.target.parentElement.firstChild.innerHTML;
+		getId = e.target.parentElement.firstChild.innerHTML; // drar ner innehållet från personernas information..
 		
 		regExForId =/Unikt Id: .+/i;
 		
-		result = getId.match(regExForId);
+		result = getId.match(regExForId); // letar efter id't för personen..
 		
 		result = result[0].split("Unikt Id: "); // Nu så ligger det unika Id´t i result[1]...
 		
@@ -285,6 +285,64 @@ var MEDLEMSREGISTER = {
 	},
 	
 	editChosenMember : function(i){
+		var member, boxHolder, nameChange, nameChangeInput, lastNameChange, lastNameChangeInput, phoneChange, phoneChangeInput, uniqueIdChange, uniqueIdChangeInput, saveButton, cancelButton;
+		member = JSON.parse(localStorage["member" + i]);
+		
+		boxHolder = document.createElement("div");
+		boxHolder.setAttribute("id", "boxForChange");
+		
+		nameChange = document.createElement("div");
+		nameChange.setAttribute("id", "nameChange");
+		nameChange.innerHTML = "Name: ";		
+		boxHolder.appendChild(nameChange);
+		nameChangeInput = document.createElement("input");
+		nameChangeInput.setAttribute("id", "nameChangeInput");
+		nameChangeInput.setAttribute("value", member[0]);
+		nameChange.appendChild(nameChangeInput);
+		
+		lastNameChange = document.createElement("div");
+		lastNameChange.setAttribute("id", "lastNameChange");
+		lastNameChange.innerHTML = "Efternamn: ";
+		boxHolder.appendChild(lastNameChange);
+		lastNameChangeInput = document.createElement("input");
+		lastNameChangeInput.setAttribute("id", "lastNameChangeInput");
+		lastNameChangeInput.setAttribute("value", member[1]);
+		lastNameChange.appendChild(lastNameChangeInput);
+		
+		phoneChange = document.createElement("div");
+		phoneChange.setAttribute("id", "phoneChange");
+		phoneChange.innerHTML = "Telefonnummer: ";
+		boxHolder.appendChild(phoneChange);
+		phoneChangeInput = document.createElement("input");
+		phoneChangeInput.setAttribute("id", "phoneChangeInput");
+		phoneChangeInput.setAttribute("value", member[2]);
+		phoneChange.appendChild(phoneChangeInput);
+		
+		uniqueIdChange = document.createElement("div");
+		uniqueIdChange.setAttribute("id", "uniqueIdChange");
+		uniqueIdChange.innerHTML = "Unikt Id: ";
+		boxHolder.appendChild(uniqueIdChange);
+		uniqueIdChangeInput = document.createElement("input");
+		uniqueIdChangeInput.setAttribute("id", "uniqueIdChangeInput");
+		uniqueIdChangeInput.setAttribute("value", member[3]);
+		uniqueIdChange.appendChild(uniqueIdChangeInput);
+		
+		saveButton = document.createElement("input");
+		saveButton.setAttribute("id", "saveButton");
+		saveButton.setAttribute("type", "button");
+		saveButton.setAttribute("Value", "Godkänn ändringar");
+		boxHolder.appendChild(saveButton);	
+		
+		cancelButton = document.createElement("input");
+		cancelButton.setAttribute("id", "cancelButton");
+		cancelButton.setAttribute("type", "button");
+		cancelButton.setAttribute("Value", "Avbryt");
+		boxHolder.appendChild(cancelButton);		
+		
+		document.getElementById("body").appendChild(boxHolder);
+		
+		
+		
 		
 	}
 };
