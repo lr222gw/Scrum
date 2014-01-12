@@ -34,7 +34,7 @@ var MEDLEMSREGISTER = {
 		
 		addMemberButton.onclick = function(){
 			regform.classList.remove("hide");
-			document.getElementById("container").classList.add("hide");
+			//document.getElementById("container").classList.add("hide");
 		};
 		
 		toUpperCaser = function(aString){ // denna metod tagen från http://stackoverflow.com/questions/1026069/capitalize-the-first-letter-of-string-in-javascript
@@ -175,17 +175,17 @@ var MEDLEMSREGISTER = {
 				document.getElementById("showMembers").value = "Visa registrerade medlemmar";
 			}
 			
-			try{
-				if(document.getElementById("membersDiv").className !== "hide"){ // om windowfönsret finns, göm det
-					
-					document.getElementById("membersDiv").remove();					
-					return;				
-				}else{
-					document.getElementById("membersDiv").classList.remove("hide")
-				}
-			}catch(ey){
+			 try{
+				 if(document.getElementById("membersDiv").className !== "hide"){ // om windowfönsret finns, göm det
+
+					 document.getElementById("membersDiv").remove();					
+					 return;				
+				 }else{
+					 document.getElementById("membersDiv").classList.remove("hide")
+				 }
+			 }catch(ey){
 				// do nothing
-			}
+			} 
 			
 			
 			for(i = 0; i < MEDLEMSREGISTER.members.length; i +=1){
@@ -424,7 +424,7 @@ var MEDLEMSREGISTER = {
 			searchBox.appendChild(searchButton);
 			
 			xButton.onclick = function(){
-				searchBox.remove();				
+				document.getElementById("searchBox").remove();				
 			};
 			
 			searchButton.onclick = function(){
