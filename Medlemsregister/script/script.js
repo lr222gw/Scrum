@@ -8,6 +8,7 @@ var MEDLEMSREGISTER = {
 		MEDLEMSREGISTER.registerMember(); // Låter register member köra så att jag kan testa koden...
 		MEDLEMSREGISTER.showMembers();
 		MEDLEMSREGISTER.loadFromLocalStorage();
+		MEDLEMSREGISTER.findMember();
 		
 		
 		//var testPerson = ["Stefan", "Björk", "03666454", "1stefan0020232s"]
@@ -390,15 +391,56 @@ var MEDLEMSREGISTER = {
 	},
 	
 	findMember : function(){
-		var findMemberButton;
+		var findMemberButton, searchBox, searchInput, searchInputLabel, searchButton, valueOfSearch, allUserData, controlledUserData;
 		
-		findMemberButton = document.getElementById("findMember");
-		
-		//MEDLEMSREGISTER.listMember(i, membersDiv); 
+		findMemberButton = document.getElementById("findMember");			
 		
 		findMemberButton.onclick = function(){
+			var i, matched;
+			controlledUserData = "";
+			matched = [];
 			
-		}
+			searchBox = document.createElement("div");
+			searchBox.setAttribute("id", "searchBox");
+			document.getElementById("body").appendChild(searchBox);
+			
+			searchInput = document.createElement("input");
+			searchInput.setAttribute("type", "text");
+			searchInput.setAttribute("id", "searchInput");
+			searchInput.setAttribute("placeholder", "Sök: namn, telenummer, id");
+			searchInput.setAttribute("style", "width: 180px;");
+			
+			searchButton = document.createElement("input");
+			searchButton.setAttribute("value", "Sök!");
+			searchButton.setAttribute("type", "button");
+			
+			searchBox.appendChild(searchInput);
+			searchBox.appendChild(searchButton);
+			
+			searchButton.onclick = function(){
+				
+				matched = []; // Tömmer arrayen så att den är redo för sökning...
+				valueOfSearch = searchInput.value; // Sparar ner det man söker efter
+				
+				valueOfSearch = new RegExp(valueOfSearch, "ig"); 
+				
+				for(i = 0; i < localStorage.length; i+=1){
+					allUserData = JSON.parse(localStorage["member"+ i]); // hämtar ner all data om alla medlemmar...
+					if(allUserData !== "undefined" || allUserData !== undefined){
+						controlledUserData += allUserData + " "; // lägger till den kontrollerade medlemmen i texten vi ska söka igenom!.
+					}
+					
+				}
+				controlledUserData = controlledUserData.replace(/,/g, " "); // byter ut alla "," mot mellanrum.. det blir lättare att söka igenom strängen då! 
+				
+				matched.push(controlledUserData.match(valueOfSearch));
+				
+				//MEDLEMSREGISTER.listMember(i, membersDiv); 
+				
+			};
+			
+			
+		};
 		
 		
 	}

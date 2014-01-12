@@ -39,7 +39,7 @@ display: block;
 	margin-bottom: 15px;
 }
 
-#regform {
+#regform, #searchBox {
 	position: fixed;
 	width: 40%;
 	height: 300px;
