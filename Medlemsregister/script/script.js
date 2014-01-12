@@ -192,7 +192,7 @@ var MEDLEMSREGISTER = {
 				memberBox.setAttribute("class", "memberBox");
 				memberBox.innerText = MEDLEMSREGISTER.members[i][0]+" "+MEDLEMSREGISTER.members[i][1]; // sätter innerText till personens namn ooch efternamn
 				
-				for(j = 0; j < MEDLEMSREGISTER.members[i].length; j +=1){ // denna behöver egentligen inte köras 4 ggr... 
+				//for(j = 0; j < MEDLEMSREGISTER.members[i].length; j +=1){ // denna behöver egentligen inte köras 4 ggr... 
 					memberBoxContent = document.createElement("memberBoxContent");
 					memberBoxContent.setAttribute("class", "memberBoxContent");
 					memberBoxContent.classList.add("hide");
@@ -247,7 +247,7 @@ var MEDLEMSREGISTER = {
 					editButton.onclick = function(e){
 						MEDLEMSREGISTER.findAMember(e, MEDLEMSREGISTER.editChosenMember);
 					};
-				}
+				//}
 				
 			}
 			

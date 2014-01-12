@@ -63,6 +63,11 @@ width: 95%;
 margin: 0 auto;
 margin-bottom: 5px;
 }
+.memberBox:hover {
+    cursor: pointer;
+    background-color: rgb(235, 80, 80);
+}
+
 #membersDiv {
 background-color: rgb(255, 108, 108);
 width: 40%;
