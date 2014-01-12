@@ -391,7 +391,7 @@ var MEDLEMSREGISTER = {
 	},
 	
 	findMember : function(){
-		var findMemberButton, searchBox, searchInput, searchInputLabel, searchButton, valueOfSearch, resultBox, uncontrolledUserData, controlledUserData;
+		var findMemberButton, searchBox, searchInput, searchInputLabel, searchButton, valueOfSearch, resultBox, uncontrolledUserData, controlledUserData, xButton;
 		
 		findMemberButton = document.getElementById("findMember");			
 		
@@ -414,14 +414,27 @@ var MEDLEMSREGISTER = {
 			searchButton.setAttribute("value", "Sök!");
 			searchButton.setAttribute("type", "button");
 			
-			resultBox = document.createElement("div");
-			resultBox.setAttribute("id", "resultBox");
+			xButton = document.createElement("input");
+			xButton.setAttribute("type", "button");
+			xButton.setAttribute("value", "X");
+			xButton.setAttribute("id", "xButton");
 			
+			searchBox.appendChild(xButton);
 			searchBox.appendChild(searchInput);
 			searchBox.appendChild(searchButton);
-			searchBox.appendChild(resultBox);
+			
+			xButton.onclick = function(){
+				searchBox.remove();				
+			};
 			
 			searchButton.onclick = function(){
+				
+				if(resultBox){ // om denna finns..
+					resultBox.remove();
+				}
+				resultBox = document.createElement("div");
+				resultBox.setAttribute("id", "resultBox");
+				searchBox.appendChild(resultBox);
 				
 				matched = []; // Tömmer arrayen så att den är redo för sökning...
 				controlledUserData = "";
