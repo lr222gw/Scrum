@@ -391,7 +391,7 @@ var MEDLEMSREGISTER = {
 	},
 	
 	findMember : function(){
-		var findMemberButton, searchBox, searchInput, searchInputLabel, searchButton, valueOfSearch, allUserData, controlledUserData;
+		var findMemberButton, searchBox, searchInput, searchInputLabel, searchButton, valueOfSearch, resultBox, uncontrolledUserData, controlledUserData;
 		
 		findMemberButton = document.getElementById("findMember");			
 		
@@ -414,28 +414,42 @@ var MEDLEMSREGISTER = {
 			searchButton.setAttribute("value", "Sök!");
 			searchButton.setAttribute("type", "button");
 			
+			resultBox = document.createElement("div");
+			resultBox.setAttribute("id", "resultBox");
+			
 			searchBox.appendChild(searchInput);
 			searchBox.appendChild(searchButton);
+			searchBox.appendChild(resultBox);
 			
 			searchButton.onclick = function(){
 				
 				matched = []; // Tömmer arrayen så att den är redo för sökning...
+				controlledUserData = "";
+				uncontrolledUserData = "";
 				valueOfSearch = searchInput.value; // Sparar ner det man söker efter
 				
 				valueOfSearch = new RegExp(valueOfSearch, "ig"); 
 				
 				for(i = 0; i < localStorage.length; i+=1){
-					allUserData = JSON.parse(localStorage["member"+ i]); // hämtar ner all data om alla medlemmar...
-					if(allUserData !== "undefined" || allUserData !== undefined){
-						controlledUserData += allUserData + " "; // lägger till den kontrollerade medlemmen i texten vi ska söka igenom!.
+					
+					uncontrolledUserData = JSON.parse(localStorage["member"+ i]); // hämtar ner data om alla medlemmar...
+					
+					if(uncontrolledUserData !== "undefined" || uncontrolledUserData !== undefined){
+						controlledUserData = uncontrolledUserData.toString(); // lägger den kontrollerade datan i en ny variabel..
+						
+						controlledUserData = controlledUserData.replace(/,/g, " "); // byter ut alla "," mot mellanrum.. det blir lättare att söka igenom strängen då! 
+						
+						matched.push(controlledUserData.match(valueOfSearch));
+						
+						if(matched[0] !== null){ // om denna är falsk så blev det ingen match, om denna är sann så blev det match och vi kan initiera medlemmen som vi hittat..
+							MEDLEMSREGISTER.listMember(i, resultBox); 
+						}
+						
+						matched = []; // Tömmer arrayen så att den är redo för sökning...
+						
 					}
 					
 				}
-				controlledUserData = controlledUserData.replace(/,/g, " "); // byter ut alla "," mot mellanrum.. det blir lättare att söka igenom strängen då! 
-				
-				matched.push(controlledUserData.match(valueOfSearch));
-				
-				//MEDLEMSREGISTER.listMember(i, membersDiv); 
 				
 			};
 			
