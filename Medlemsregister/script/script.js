@@ -170,6 +170,8 @@ var MEDLEMSREGISTER = {
 			membersDiv = document.createElement("div"); // div där allt som har att göra med visandet av medlemmar läggs in..
 			membersDiv.setAttribute("id", "membersDiv");
 			
+			MEDLEMSREGISTER.members.sort(); // så att allt sorteras i bokstavsordning..
+			
 			if(document.getElementById("showMembers").value === "Visa registrerade medlemmar"){
 				
 				document.getElementById("showMembers").value = "Dölj registerade medlemmar";

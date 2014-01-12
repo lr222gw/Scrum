@@ -1,0 +1,5 @@
+I denna sprint har jag fortsatt med funktionaliteten av programmet.
+Jag har lagt ett par nya funktioner för; ta bort data, ändra data, sökning. 
+Utöver de nya funktionerna så har jag också ändrat lite på funktionerna som jag skapade i förra sprinten, i vissa fall var det för att förbättra och andra fall för att följa DRY-regeln.
+Jag stylade till hela programmet också, lade till animationer, snyggade till poppuprutorna och lade till en gråad bild som ligger under popupprutorna (det går att komma åt allt under den gråade bilden med hjälp av tangentbordet, anledningen till den gråade bilden är till för att hjälpa användarna att inte göra fel, om användaren vill göra fel så går det..). 
+Allt som stod i sprintbackloggen blev klart.
