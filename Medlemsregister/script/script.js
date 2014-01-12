@@ -163,7 +163,7 @@ var MEDLEMSREGISTER = {
 	},
 	
 	showTheMembers : function(){
-		var  showMembers, membersDiv, i, j, memberBox, memberBoxContent, removeButton, editButton;
+		var  showMembers, membersDiv, i;
 			membersDiv = document.createElement("div"); // div där allt som har att göra med visandet av medlemmar läggs in..
 			membersDiv.setAttribute("id", "membersDiv");
 			
@@ -188,70 +188,74 @@ var MEDLEMSREGISTER = {
 			
 			
 			for(i = 0; i < MEDLEMSREGISTER.members.length; i +=1){
-				memberBox = document.createElement("div");
-				memberBox.setAttribute("class", "memberBox");
-				memberBox.innerText = MEDLEMSREGISTER.members[i][0]+" "+MEDLEMSREGISTER.members[i][1]; // sätter innerText till personens namn ooch efternamn
-				
-				//for(j = 0; j < MEDLEMSREGISTER.members[i].length; j +=1){ // denna behöver egentligen inte köras 4 ggr... 
-					memberBoxContent = document.createElement("memberBoxContent");
-					memberBoxContent.setAttribute("class", "memberBoxContent");
-					memberBoxContent.classList.add("hide");
-					memberBoxContent.innerHTML = "<p> Namn: "+MEDLEMSREGISTER.members[i][0]+"<br/> Efternamn: "+MEDLEMSREGISTER.members[i][1]+"<br/> Telefonnummer: "+MEDLEMSREGISTER.members[i][2]+"<br/> Unikt Id: " + MEDLEMSREGISTER.members[i][3] + "</p>";
-					//↑Skapar en plats för innehållet i arrayen, lägger in innehållet för denna medlem...					
-					//↓Skapar knapp för att ta bort medlem... 
-					removeButton = document.createElement("input");
-					removeButton.setAttribute("id", "removeMemberButton");
-					removeButton.setAttribute("type", "button");
-					removeButton.setAttribute("Value", "Ta bort denna person");
-					memberBoxContent.appendChild(removeButton);
-					
-					editButton = document.createElement("input");
-					editButton.setAttribute("id", "editMemberButton");
-					editButton.setAttribute("type", "button");
-					editButton.setAttribute("Value", "Ändra information för denna person");
-					memberBoxContent.appendChild(editButton);
-					
-					
-					memberBox.appendChild(memberBoxContent);
-					membersDiv.appendChild(memberBox);
-					
-					memberBox.onclick = function(e){
-						var whatWasPressed;
-						
-						whatWasPressed = e.target;
-						
-						if(e.target.className === "memberBoxContent"|| e.target.id ==="removeMemberButton" ||e.target.nodeName === "P" || e.target.id === "editMemberButton"){ // om "e" inte är memberBox, gör "e" till memberBox <-- för att annars så hamnar hide på fel, om man tex trycker på memberBoxContent...
-							whatWasPressed = e.target.parentNode;
-							return;
-						}
-						
-						if(whatWasPressed.children[0].className === "memberBoxContent hide"){
-							whatWasPressed.children[0].classList.remove("hide");
-						}else{
-							whatWasPressed.children[0].classList.add("hide");
-						}
-						
-					};
-					
-					removeButton.onclick = function(e){
-						var answer;
-						answer = confirm("Är du säker på att du vill ta bort denna person?");
-						if(answer === false){
-							return;
-						}
-						MEDLEMSREGISTER.findAMember(e, MEDLEMSREGISTER.deleteChosenMember);
-						e.target.parentNode.parentNode.remove();
-						
-					};
-					
-					editButton.onclick = function(e){
-						MEDLEMSREGISTER.findAMember(e, MEDLEMSREGISTER.editChosenMember);
-					};
-				//}
-				
+				MEDLEMSREGISTER.listMember(i, membersDiv); // Anropar en metod som listar upp 1 specifik medlem.. anropar den antalet ggr som antalet medlemmar.. = alla medlemmar listas..
+			}
+			document.getElementById("body").appendChild(membersDiv);
+	},
+	
+	listMember : function(i, membersDiv){
+		var memberBox, memberBoxContent, removeButton, editButton;
+		memberBox = document.createElement("div");
+		memberBox.setAttribute("class", "memberBox");
+		memberBox.innerText = MEDLEMSREGISTER.members[i][0]+" "+MEDLEMSREGISTER.members[i][1]; // sätter innerText till personens namn ooch efternamn
+		
+	//for(j = 0; j < MEDLEMSREGISTER.members[i].length; j +=1){ // denna behöver egentligen inte köras 4 ggr... 
+		memberBoxContent = document.createElement("memberBoxContent");
+		memberBoxContent.setAttribute("class", "memberBoxContent");
+		memberBoxContent.classList.add("hide");
+		memberBoxContent.innerHTML = "<p> Namn: "+MEDLEMSREGISTER.members[i][0]+"<br/> Efternamn: "+MEDLEMSREGISTER.members[i][1]+"<br/> Telefonnummer: "+MEDLEMSREGISTER.members[i][2]+"<br/> Unikt Id: " + MEDLEMSREGISTER.members[i][3] + "</p>";
+		//↑Skapar en plats för innehållet i arrayen, lägger in innehållet för denna medlem...					
+		//↓Skapar knapp för att ta bort medlem... 
+		removeButton = document.createElement("input");
+		removeButton.setAttribute("id", "removeMemberButton");
+		removeButton.setAttribute("type", "button");
+		removeButton.setAttribute("Value", "Ta bort denna person");
+		memberBoxContent.appendChild(removeButton);
+		
+		editButton = document.createElement("input");
+		editButton.setAttribute("id", "editMemberButton");
+		editButton.setAttribute("type", "button");
+		editButton.setAttribute("Value", "Ändra information för denna person");
+		memberBoxContent.appendChild(editButton);
+		
+		
+		memberBox.appendChild(memberBoxContent);
+		membersDiv.appendChild(memberBox);
+		
+		memberBox.onclick = function(e){
+			var whatWasPressed;
+			
+			whatWasPressed = e.target;
+			
+			if(e.target.className === "memberBoxContent"|| e.target.id ==="removeMemberButton" ||e.target.nodeName === "P" || e.target.id === "editMemberButton"){ // om "e" inte är memberBox, gör "e" till memberBox <-- för att annars så hamnar hide på fel, om man tex trycker på memberBoxContent...
+				whatWasPressed = e.target.parentNode;
+				return;
 			}
 			
-			document.getElementById("body").appendChild(membersDiv);
+			if(whatWasPressed.children[0].className === "memberBoxContent hide"){
+				whatWasPressed.children[0].classList.remove("hide");
+			}else{
+				whatWasPressed.children[0].classList.add("hide");
+			}
+			
+		};
+		
+		removeButton.onclick = function(e){
+			var answer;
+			answer = confirm("Är du säker på att du vill ta bort denna person?");
+			if(answer === false){
+				return;
+			}
+			MEDLEMSREGISTER.findAMember(e, MEDLEMSREGISTER.deleteChosenMember);
+			e.target.parentNode.parentNode.remove();
+			
+		};
+		
+		editButton.onclick = function(e){
+			MEDLEMSREGISTER.findAMember(e, MEDLEMSREGISTER.editChosenMember);
+		};
+	//}
+		return membersDiv;
 	},
 	
 	findAMember : function(e, whatToDo){ // Denna metod kan bara användas av knappar implementerade i personernas information...
@@ -382,6 +386,20 @@ var MEDLEMSREGISTER = {
 
 			document.getElementById("boxForChange").remove();
 		};
+		
+	},
+	
+	findMember : function(){
+		var findMemberButton;
+		
+		findMemberButton = document.getElementById("findMember");
+		
+		//MEDLEMSREGISTER.listMember(i, membersDiv); 
+		
+		findMemberButton.onclick = function(){
+			
+		}
+		
 		
 	}
 };
