@@ -26,7 +26,7 @@ var MEDLEMSREGISTER = {
 		};
 				
 		regform = document.getElementById("regform"); // Döljer formuläret som standard... 
-		regform.classList.add("hide");
+		regform.classList.add("hide");		
 		
 		addMemberButton = document.getElementById("addMember"); // hämtar ner en knapp som ska användas för att visa formuläret..
 		backButton = document.getElementById("backButton");
@@ -34,6 +34,7 @@ var MEDLEMSREGISTER = {
 		
 		addMemberButton.onclick = function(){
 			regform.classList.remove("hide");
+			document.getElementById("blocker").classList.add("showOrBlock");
 			//document.getElementById("container").classList.add("hide");
 		};
 		
@@ -105,6 +106,7 @@ var MEDLEMSREGISTER = {
 		backButton.onclick = function(){
 			regform.classList.add("hide");
 			document.getElementById("container").classList.remove("hide");
+			document.getElementById("blocker").classList.remove("showOrBlock");
 		};
 	},
 	
@@ -164,7 +166,7 @@ var MEDLEMSREGISTER = {
 	},
 	
 	showTheMembers : function(){
-		var  showMembers, membersDiv, i;
+		var  showMembers, membersDiv, i, forAnimation;
 			membersDiv = document.createElement("div"); // div där allt som har att göra med visandet av medlemmar läggs in..
 			membersDiv.setAttribute("id", "membersDiv");
 			
@@ -177,9 +179,15 @@ var MEDLEMSREGISTER = {
 			
 			 try{
 				 if(document.getElementById("membersDiv").className !== "hide"){ // om windowfönsret finns, göm det
-
-					 document.getElementById("membersDiv").remove();					
-					 return;				
+					
+					forAnimation = document.getElementById("membersDiv");
+					forAnimation.removeAttribute("id", "membersDiv");
+					forAnimation.setAttribute("id", "outAnimation");
+					setTimeout(function(){
+						document.getElementById("outAnimation").remove();
+					}, 300);
+									
+					return;				
 				 }else{
 					 document.getElementById("membersDiv").classList.remove("hide")
 				 }
@@ -298,6 +306,8 @@ var MEDLEMSREGISTER = {
 		var member, boxHolder, nameChange, nameChangeInput, lastNameChange, lastNameChangeInput, phoneChange, phoneChangeInput, uniqueIdChange, uniqueIdChangeInput, saveButton, cancelButton, answer, h1, fieldset, legend;
 		member = JSON.parse(localStorage["member" + i]);
 		
+		document.getElementById("blocker").classList.add("showOrBlock");
+		
 		boxHolder = document.createElement("div");
 		boxHolder.setAttribute("id", "boxForChange");
 		h1 =  document.createElement("h1");
@@ -384,21 +394,33 @@ var MEDLEMSREGISTER = {
 		};
 		
 		cancelButton.onclick = function(){
-
+			document.getElementById("blocker").classList.remove("showOrBlock");
 			document.getElementById("boxForChange").remove();
 		};
 		
 	},
 	
 	findMember : function(){
-		var findMemberButton, searchBox, searchInput, searchInputLabel, searchButton, valueOfSearch, resultBox, uncontrolledUserData, controlledUserData, xButton;
+		var findMemberButton, searchBox, searchInput, searchInputLabel, searchButton, valueOfSearch, resultBox, uncontrolledUserData, controlledUserData, xButton, h1, legend, fieldset;
 		
 		findMemberButton = document.getElementById("findMember");			
 		
 		findMemberButton.onclick = function(){
+			
+			document.getElementById("blocker").classList.add("showOrBlock");
+			
 			var i, matched;
 			controlledUserData = "";
 			matched = [];
+			
+			h1 = document.createElement("h1");
+			h1.innerHTML = "Sök efter medlem!";
+			
+			legend = document.createElement("legend");
+			legend.innerHTML = "Formulär för sökning";
+			
+			fieldset = document.createElement("fieldset");
+			
 			
 			searchBox = document.createElement("div");
 			searchBox.setAttribute("id", "searchBox");
@@ -419,12 +441,16 @@ var MEDLEMSREGISTER = {
 			xButton.setAttribute("value", "X");
 			xButton.setAttribute("id", "xButton");
 			
-			searchBox.appendChild(xButton);
-			searchBox.appendChild(searchInput);
-			searchBox.appendChild(searchButton);
+			searchBox.appendChild(h1);
+			searchBox.appendChild(fieldset);
+			fieldset.appendChild(legend);
+			fieldset.appendChild(xButton);
+			fieldset.appendChild(searchInput);
+			fieldset.appendChild(searchButton);
 			
 			xButton.onclick = function(){
-				document.getElementById("searchBox").remove();				
+				document.getElementById("searchBox").remove();	
+				document.getElementById("blocker").classList.remove("showOrBlock");			
 			};
 			
 			searchButton.onclick = function(){
@@ -434,7 +460,7 @@ var MEDLEMSREGISTER = {
 				}
 				resultBox = document.createElement("div");
 				resultBox.setAttribute("id", "resultBox");
-				searchBox.appendChild(resultBox);
+				fieldset.appendChild(resultBox);
 				
 				matched = []; // Tömmer arrayen så att den är redo för sökning...
 				controlledUserData = "";

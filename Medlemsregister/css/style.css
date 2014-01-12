@@ -1,7 +1,8 @@
-body {
+body, html {
 	background-color: red;
 	font-family: sans-serif;
 	margin: 0;
+	height: 100%
 }
 
 input {
@@ -34,6 +35,7 @@ display: block;
 	padding: 15px;
 	font-family: sans-serif;
 	padding-top: 45px;
+	z-index: 10;
 }
 #h1TaggForEditMember {
 	margin-top: -25px;
@@ -52,8 +54,9 @@ display: block;
 	padding: 15px;
 	font-family: sans-serif;
 	overflow: auto;
+	z-index: 10;
 }
-#regform h1 {
+#regform h1, #searchBox h1{
 	margin-top: 3px;
 }
 
@@ -73,15 +76,29 @@ margin-bottom: 5px;
 #membersDiv {
 	background-color: rgb(255, 108, 108);
 	width: 40%;
-	max-height: 100%;
+	height: calc(100% - 15px); /* tar 100% och sedan bort 15px för padding..*/
 	padding-bottom: 10px;
 	padding-top: 5px;
 	position: absolute;
 	left: 20%;
 	z-index: 5;
 	overflow: visible;
-	animation: myfirst 5s;
+	animation: memberListAnimation 0.3s;
 	-webkit-animation: memberListAnimation 0.3s ease-in-out;
+}
+
+#outAnimation{
+	background-color: rgb(255, 108, 108);
+	width: 40%;
+	height: calc(100% - 15px);
+	padding-bottom: 10px;
+	padding-top: 5px;
+	position: absolute;
+	left: 20%;
+	z-index: 5;
+	overflow: visible;
+	animation: memberListAnimationOut 0.3s;
+	-webkit-animation: memberListAnimationOut 0.3s ease-in-out;
 }
 
 @keyframes memberListAnimation{ /*Kod för animation, från: http://www.w3schools.com/css/tryit.asp?filename=trycss3_animation1 */
@@ -92,6 +109,16 @@ to {left: 20%;}
 @-webkit-keyframes memberListAnimation{ /* Safari and Chrome */
 from {left: -20%;}
 to {left: 20%;}
+}
+
+@keyframes memberListAnimationOut{ 
+from {left: 20%;}
+to {left: -20%;}
+}
+
+@-webkit-keyframes memberListAnimationOut{ /* Safari and Chrome */
+from {left: 20%;}
+to {left: -20%;}
 }
 
 #xButton{
@@ -109,7 +136,7 @@ top: 0;
 height: 100%;
 border-right: black solid 1px;
 box-shadow: black 0px 0px 40px 10px;
-z-index: 10;
+z-index: 6;
 }
 #container input {
 width: 100%;
@@ -125,4 +152,12 @@ margin-bottom: 5px;
 #container input:hover {
 background-color: rgb(175, 0, 0);
 cursor: pointer;
+}
+
+.showOrBlock {
+width: 100%;
+min-height: 100%;
+background-color: rgba(255, 255, 255, 0.69);
+z-index: 7;
+position: fixed;
 }
