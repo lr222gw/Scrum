@@ -99,8 +99,6 @@ var MEDLEMSREGISTER = {
 				alert("Medlem tillagd!");
 			}
 			
-			
-	
 		};
 		
 		backButton.onclick = function(){
@@ -392,6 +390,7 @@ var MEDLEMSREGISTER = {
 			MEDLEMSREGISTER.members = []; //tar bort allt i members,
 			MEDLEMSREGISTER.loadFromLocalStorage(); // läser in aktuella medlemmar i LocalStorage..
 			MEDLEMSREGISTER.showTheMembers(); //läser in alla medlemmar i listan...
+			document.getElementById("blocker").classList.remove("showOrBlock"); // tar bort blockering...
 			
 		};
 		
