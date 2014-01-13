@@ -16,7 +16,7 @@ var MEDLEMSREGISTER = {
 	},
 	
 	registerMember : function(){
-		var sendButton, name, lastName, cellphone, uniqueId, i, j, errorAlreadyExists, errorMessage, errorEnum, regform, addMemberButton, backButton, toUpperCaser;
+		var sendButton, name, lastName, cellphone, uniqueId, i, j, errorAlreadyExists, errorMessage, errorEnum, regform, addMemberButton, backButton, toUpperCaser, ifAlreadyExist;
 		errorAlreadyExists = 0;		
 		errorEnum ={
 			0 : "Namn",
@@ -57,7 +57,7 @@ var MEDLEMSREGISTER = {
 			for(i = 0; i < MEDLEMSREGISTER.members.length; i +=1){ //kontrollera per medlem
 				
 				errorAlreadyExists = 0; // nollställer denna för varje varv...
-				errorMessage ="Det finns redan en person med "; //nollställer denna för varje varv..
+				errorMessage =" Det finns redan en person med "; //nollställer denna för varje varv..
 				
 				for(j = 0; j < MEDLEMSREGISTER.members[i].length; j +=1){ // kontrollera en hel medlem.
 					
@@ -69,8 +69,13 @@ var MEDLEMSREGISTER = {
 					}	
 					if(errorAlreadyExists === MEDLEMSREGISTER.members[i].length-1){// om längden på members nuvarande arrayobj är samma som 3 skriv ut error meddelandet...
 						
-						alert(errorMessage);
-						return;
+						ifAlreadyExist = confirm(errorMessage + "\n \n Är du säker på att du vill fortsätta?");
+						if(ifAlreadyExist === false){
+							return;
+						}
+						i = MEDLEMSREGISTER.members.length;
+						break;
+						
 					}							
 					
 				}
