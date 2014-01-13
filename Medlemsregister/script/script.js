@@ -70,7 +70,7 @@ var MEDLEMSREGISTER = {
 					if(errorAlreadyExists === MEDLEMSREGISTER.members[i].length-1){// om längden på members nuvarande arrayobj är samma som 3 skriv ut error meddelandet...
 						
 						alert(errorMessage);
-						break;
+						return;
 					}							
 					
 				}
